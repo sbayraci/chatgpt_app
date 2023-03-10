@@ -31,7 +31,7 @@ product = st.sidebar.text_input('Product :q','BMW 7 Series')
 
 # Set the model engine and your OpenAI API key
 model_engine = "text-davinci-003"
-openai.api_key = "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" 
+openai.api_key = "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" 
 
 def main():
     '''
