@@ -8,11 +8,10 @@ st.info(
        the OpenAI API's implementation of the ChatGPT model and generate creative ad suggestions for social media campaigns.
        '''
     )
-
 st.sidebar.header("Instructions")
 st.sidebar.info(
-    '''Select language, social media, target group and the product name from the boxes below. 
-       **click Run** to receive a **suggestions for a social media ad** from the ChatGPT
+    '''Enter language, social media, target group and the product name from the input boxes. 
+       **Click Run** to receive a **suggestions for a social media ad** from the ChatGPT
        '''
     )
 
@@ -29,9 +28,14 @@ target = st.sidebar.text_input('Target Group :q','Company Executives')
 product = st.sidebar.text_input('Product :q','BMW 7 Series')
 
 
+
+
 # Set the model engine and your OpenAI API key
-model_engine = "text-davinci-003"
-openai.api_key = "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" 
+openai.api_type='azure'
+openai.api_base='https://oai-bo-azwe-prod-csr.openai.azure.com/'
+openai.api_key='f8ce8085901b45c4992f16b31a44071b'
+openai.api_version='2022-12-01'
+model_engine ='oai-bo-davinci003'
 
 def main():
     '''
@@ -40,12 +44,15 @@ def main():
     '''
     # Get user input
     query = "Write a creative ad, in",language,"for the following product to run on",media,"aimed at", target,".Product:", product
-    user_query = st.text_input("Enter query here, to click Run :q", query)
+    user_query = st.text_input("Click Run to generate output:q", query)
+    
     if user_query != ":q" or user_query != "":
         # Pass the query to the ChatGPT function
         response = ChatGPT(user_query)
-        w4 = st.button("Run")
-        return st.write(w4,f"{user_query} {response}")
+        result = st.button("Run")
+        if result:
+            return st.write(f"{user_query} {response}")
+    
 def ChatGPT(user_query):
     ''' 
     This function uses the OpenAI API to generate a response to the given 
